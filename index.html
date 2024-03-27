@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techskills</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+
+        <div class="main-container">
+
+            <div class="logo">
+                TECHSKILLS
+            </div>
+            <nav>
+                <a href="">Home</a>
+                <a href="">About</a>
+
+                <span class="dropdown">
+                    <a>
+
+                        <span>Courses</span>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+                    <div class="dropdown-menu">
+
+                        <a href=""><i class="fa-solid fa-angle-right"></i> Java</a>
+                        <a href=""><i class="fa-solid fa-angle-right"></i> HTML</a>
+
+                    </div>
+                </span>
+                <a href="">Contact Us</a>
+            </nav>
+
+            <div class="menu">
+                <div class="line line-one"></div>
+                <div class="line line-two"></div>
+                <div class="line line-three"></div>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="container">
+
+        <div class="main-container">
+
+            <div class="form-container">
+                <form action="" (ngSubmit)="addUserData()" enctype="multipart/form-data">
+                    <h1 class="heading">Register</h1>
+                    <label for="full_name">
+                        Enter your full name
+                    </label>
+                    <input type="text" name="full_name" id="full_name" [(ngModel)]="user.full_name"
+                        placeholder="Enter your full name">
+
+
+
+                    <div class="two-input">
+
+                        <div>
+                            <label for="gender">Select your gender </label>
+
+                            <select name="gender" id="gender" [(ngModel)]="user.gender">
+                                <option value="" selected disabled>Select</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label>Enter your dob </label>
+                            <input type="date" name="dateOfBirth" id="dateOfBirth" [(ngModel)]="user.dateOfBirth"
+                                placeholder="Enter your DOB">
+                        </div>
+
+                    </div>
+
+                    <div class="two-input">
+
+                        <div>
+                            <label for="panCardNo">Enter your pan card no</label>
+                            <input type="text" name="panCardNo" id="panCardNo" [(ngModel)]="user.panCardNo"
+                                placeholder="Enter your panCard no">
+                        </div>
+
+                        <div>
+
+                            <label for="aadhaarNo"> Enter your adhar card no </label>
+                            <input type="text" name="aadhaarNo" id="aadhaarNo" [(ngModel)]="user.aadhaarNo"
+                                placeholder="Enter your aadhaar no">
+                        </div>
+                    </div>
+
+
+                    <div class="two-input">
+
+                        <div>
+
+                            <label for="contactNo">Enter your contact no</label>
+                            <input type="text" name="contactNo" id="contactNo" [(ngModel)]="user.contactNo"
+                                placeholder="Enter your number">
+                        </div>
+
+                        <div>
+
+                            <label for="email">Enter your email</label>
+                            <input type="email" name="email" id="email" [(ngModel)]="user.email"
+                                placeholder="Enter your email">
+                        </div>
+
+                    </div>
+
+                    <label for="address">
+                        Enter your address
+                    </label>
+                    <textarea name="address" id="address" [(ngModel)]="user.address"
+                        placeholder="Enter your full address"></textarea>
+
+                    <label>Select your Academic Qualification</label>
+
+                    <select name="AcademicQualification" id="academicQualification"
+                        [(ngModel)]="user.academicQualification">
+                        <option value="" selected disabled>Current Qualification</option>
+                        <option value="ssc">SSC</option>
+                        <option value="hsc">HSC</option>
+                        <option value="graduate">Graduate</option>
+                        <option value="Post-Graduate">Post Graduate</option>
+
+                    </select>
+
+                    <div class="qualification-container"></div>
+
+                    <label>OTHER QUALIFICATION DETAILS </label>
+                    <input type="text" name="others" id="others" [(ngModel)]="user.others"
+                        placeholder="Enter name of other qualification">
+
+                    <label>CHOOSE YOUR IMAGE </label>
+
+                    <div *ngIf="isWebcamActive" class="capture-upload-container">
+                        <webcam [height]="400" [width]="400" [trigger]="invokeObservable"
+                            (imageCapture)="captureImg($event)">
+                        </webcam>
+                        <button (click)="getSnapshot()" class="btn capture-btn ">Capture Image</button>
+                        <button (click)="switchToUploadMode()" class="btn upload-btn">Upload Image</button>
+                    </div>
+                    <div *ngIf="imageContainer" class="image-container">
+                        <img [src]="sysImage" alt="captured-img" />
+                        <button (click)="switchToWebcamMode()" class="btn capture-btn">Re-Capture</button>
+                    </div>
+                    <!-- File upload view --> <!-- flase -->
+                    <div *ngIf="isFileActive">
+
+                        <div class="choose-file-container">
+                            <button type="button" class="btn choose-file-btn">
+                                Choose File
+                            </button>
+                            <input type="file" class="choose-file-hidden-btn" (change)="onFileSelected($event)"
+                                accept="image/*" />
+                        </div>
+
+                        <button (click)="switchToWebcamMode()" class="btn capture-btn">Switch to Webcam</button>
+                        <!-- <img [src]="sysImage" width="400px" height="400px" /> -->
+                    </div>
+
+                    <label>FEES SECTION</label>
+                    <div class="two-input">
+                        <div>
+
+                            <select name="fees" id="fees" [(ngModel)]="user.fees">
+                                <option value="" selected disabled>Select your course</option>
+                                <option value="30000">Java</option>
+                                <option value="20000">HTML</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input type="text" name="paidFees" id="paidFees" [(ngModel)]="user.paidFees"
+                                placeholder="Enter amount to pay">
+                        </div>
+                    </div>
+                    <label>PASSWORD SECTION</label>
+                    <div class="two-input">
+                        <div>
+
+                            <input type="password" name="password" id="password" [(ngModel)]="user.password"
+                                placeholder="Enter password">
+                        </div>
+                        <div>
+
+                            <input type="text" name="cnfPassword" id="cnfPassword" [(ngModel)]="user.cnfPassword"
+                                placeholder="Enter confirm password">
+                        </div>
+                    </div>
+                    <div class="error-container">
+                        <div *ngIf="errorMessages.length > 0" class="error-popup">
+                            <ul>
+                                <li *ngFor="let errorMessage of errorMessages">{{ errorMessage }}</li>
+                            </ul>
+                        </div>
+                        <div class="error-popup client-side-error"></div>
+                    </div>
+                    <div class="submit-container">
+                        <input type="submit" class="submit-btn" value="Register">
+                    </div>
+                    <div class="note">
+                        <ul>
+                            <li>* Please Fill All Details Properly.</li>
+                        </ul>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        All Rights &copy; Are Reserved 2023 || Created And Developed By AmmarDeveloper
+    </footer>
+
+    <script src="./javascript/script.js"></script>
+
+</body>
+
+</html>

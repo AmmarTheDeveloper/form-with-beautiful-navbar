@@ -1,0 +1,434 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+body {
+    background: #e2e2e2;
+    color: #282828;
+    padding-top: 50px;
+    /* because header is fixed and its height is 50px */
+}
+
+.main-container {
+    width: 100%;
+    max-width: 1300px;
+    margin-inline: auto;
+}
+
+/* navbar design here */
+header {
+
+    background: white;
+    padding-inline: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 98;
+
+}
+
+header .main-container {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    height: 50px;
+}
+
+header .logo {
+    font-size: 20px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+}
+
+header nav {
+    display: flex;
+}
+
+
+header nav a {
+    margin-inline: 10px;
+    color: #282828;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+header nav :where(a, span:not(.dropdown span)) {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+header nav .dropdown>a i {
+    margin-left: 10px;
+}
+
+/* dropdown design starts here */
+.dropdown {
+    position: relative;
+}
+
+header .dropdown-menu {
+
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    width: 180px;
+    height: fit-content;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+
+}
+
+header .dropdown.active .dropdown-menu {
+    max-height: 500px;
+}
+
+header .dropdown-menu a {
+    display: block;
+    padding: 10px;
+    cursor: pointer;
+    margin-inline: 0;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+header .dropdown-menu a:hover {
+    background: #f0f0f0;
+}
+
+header .dropdown .dropdown-menu a i {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+/* menu bar design starts here */
+header .menu {
+    width: 35px;
+    position: relative;
+    cursor: pointer;
+    display: none;
+}
+
+header .menu .line {
+    position: absolute;
+    height: 2px;
+    background: #282828;
+    width: 100%;
+    left: 0;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+}
+
+header .menu .line-one {
+    top: 25%;
+}
+
+header .menu .line-two {
+    top: 50%;
+}
+
+header .menu .line-three {
+    top: 75%;
+}
+
+header .menu.active .line-one {
+    top: 50%;
+    transform: rotate(45deg);
+}
+
+header .menu.active .line-two {
+    left: -100%;
+    opacity: 0;
+}
+
+header .menu.active .line-three {
+    top: 50%;
+    transform: rotate(-45deg);
+}
+
+/* header response responsive design starts here  */
+@media screen and (max-width:992px) {
+
+    header .menu {
+        display: block;
+        z-index: 100;
+    }
+
+    header nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 350px;
+        max-width: 100%;
+        /* display:flex; because already applied display flex outside of the media query */
+        flex-direction: column;
+        background: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        height: 100vh;
+        z-index: 99;
+        padding-top: 100px;
+        padding-bottom: 20px;
+        transition: all 0.3s ease;
+    }
+
+    header nav.active {
+        right: 0;
+    }
+
+    header nav a {
+        padding: 10px;
+        transition: all 0.3s ease;
+        border-radius: 5px;
+    }
+
+
+    header nav .dropdown>a {
+        width: 100%;
+    }
+
+    header nav a:hover {
+        background: #f0f0f0;
+    }
+
+    header .dropdown {
+        display: block;
+    }
+
+    header .dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: unset;
+        display: block;
+        padding-left: 30px;
+        padding-right: 20px;
+    }
+
+}
+
+/* form design starts here */
+
+.container {
+    padding: 30px 20px;
+}
+
+.container .form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.container .form-container form {
+    width: 600px;
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 5px;
+    background: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.container .form-container form .heading {
+    text-align: center;
+    font-size: 35px;
+    font-weight: 600;
+    margin-block: 10px 20px;
+}
+
+.container .form-container form input,
+select,
+textarea {
+    width: 100%;
+    height: 40px;
+    outline: none;
+    border: 2px solid grey;
+    border-radius: 5px;
+    margin-block: 5px;
+    font-size: 16px;
+    padding-inline: 10px;
+}
+
+.container .form-container form textarea {
+    height: 100px;
+    padding: 5px;
+    resize: none;
+}
+
+.container .form-container form textarea::-webkit-scrollbar {
+    display: none;
+}
+
+.container .form-container form label {
+    display: block;
+    font-size: 16px;
+    margin-block: 10px 5px;
+}
+
+.container .form-container .two-input {
+    display: flex;
+    gap: 20px;
+}
+
+.container .form-container .two-input div {
+    flex: 1 0 0;
+}
+
+.container .form-container .btn {
+    height: 40px;
+    padding-inline: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-inline: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: none;
+    transition: all 0.2s ease;
+
+}
+
+.container .form-container :where(.upload-btn, .capture-btn) {
+    color: white;
+    background: #0D6EFd;
+}
+
+.container .form-container :where(.upload-btn:hover, .capture-btn:hover) {
+    background: #0245aa;
+}
+
+.container .form-container .image-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .form-container .capture-upload-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.container .form-container .image-container img {
+    height: 200px;
+    width: 200px;
+}
+
+.container .form-container .choose-file-container {
+    width: fit-content;
+    position: relative;
+}
+
+.container .form-container .choose-file-container .choose-file-hidden-btn {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+}
+
+.container .form-container .choose-file-container .choose-file-btn {
+    background: #0004Ac;
+    cursor: pointer;
+    color: white;
+}
+
+.submit-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.submit-container .submit-btn {
+    width: 250px;
+    cursor: pointer;
+    max-width: 100%;
+    background: #0D6EFd;
+    border: none;
+    color: white;
+    border: 2px solid #0D6EFd !important;
+    transition: all 0.2s ease;
+}
+
+.submit-container .submit-btn:hover {
+    background: #0245aa;
+    color: white;
+}
+
+.error-container .error-popup {
+
+    width: 100%;
+    padding: 20px;
+    border: 2px solid crimson;
+    background: rgba(220, 20, 60, 0.5);
+    border-radius: 5px;
+    margin: 10px 0;
+
+}
+
+.note {
+    text-align: left;
+    margin: 10px 0;
+}
+
+.note span {
+    font-size: 16px;
+}
+
+.note li {
+    font-size: 14px;
+}
+
+.client-side-error {
+    display: none;
+}
+
+.client-side-error.active {
+    display: block;
+}
+
+/* mobile response form */
+@media screen and (max-width:500px) {
+
+    .container .form-container form .two-input {
+        flex-direction: column;
+        row-gap: 10px;
+    }
+
+}
+
+/* footer design starts here */
+footer {
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.container .sub-container {
+    width: 90%;
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 5px;
+    background: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin: auto;
+}
+
+.container .sub-container .heading {
+    text-align: center;
+    font-size: 35px;
+    font-weight: 600;
+    margin-block: 10px 20px;
+}

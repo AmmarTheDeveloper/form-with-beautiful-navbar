@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="./css/style.css" th:href="@{/css/style.css}" />
+    <title th:text="${title}"></title>
+    <style>
+        .qr-container {
+            margin: 20px 0;
+            display: none;
+        }
+
+        .qr-container .img {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .qr-container img {
+            width: 150px;
+            border: 2px solid grey;
+            padding: 5px;
+            max-width: 100%;
+        }
+
+        .qr-container .transaction-id-container {
+            text-align: center;
+        }
+
+        .qr-container input {
+            max-width: 250px;
+        }
+
+        .qr-container.active {
+            display: block;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="main-container">
+            <div class="logo">TECHSKILLS</div>
+            <nav>
+                <a href="#" th:href="@{/}">Home</a>
+                <a href="#">About</a>
+                <a href="">Contact Us</a>
+                <span class="dropdown" th:if="${user == null}">
+                    <a>
+                        <span>Courses</span>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href=""><i class="fa-solid fa-angle-right"></i> Java</a>
+                        <a href=""><i class="fa-solid fa-angle-right"></i> HTML</a>
+                    </div>
+                </span>
+                <a th:if="${user == null}" href="" th:href="@{/signin}">Login</a>
+                <a th:if="${user == null}" href="" th:href="@{/register}">Register</a>
+                <span class="dropdown" th:if="${user != null}">
+                    <a>
+                        <span th:text="${user.userName}"></span>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </a>
+                    <div class="dropdown-menu user">
+                        <a href="">
+                            <i class="fas fa-user icon"></i> Profile
+                        </a>
+                        <a href="" th:href="@{'/user/getUserCourses?userId='+${user.userId}}">
+                            <i class="fas fa-book icon"></i> Courses
+                        </a>
+                        <a href="" th:href="@{'/user/getPayments?userId='+${user.userId}}">
+                            <i class="fas fa-money-bill icon"></i> Payments
+                        </a>
+                        <a href="" th:href="@{/user/changePasswordForm}">
+                            <i class="fas fa-key icon"></i> Change Password
+                        </a>
+                        <a href="" th:href="@{/logout}">
+                            <i class="fa-solid fa-right-from-bracket icon"></i> LogOut
+                        </a>
+                    </div>
+                </span>
+
+                <!--<a th:if="${user != null}" href="" th:text="${user.userName}"></a>
+				<a th:if="${user != null}" href="" th:href="@{/logout}">LogOut</a>-->
+            </nav>
+            <div class="menu">
+                <div class="line line-one"></div>
+                <div class="line line-two"></div>
+                <div class="line line-three"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-container">
+            <div class="form-container">
+                <form class="payment-form">
+
+                    <h1 class="heading">Payment</h1>
+
+                    <div class="two-input">
+                        <div>
+                            <label for="course">Course Name : </label>
+
+                            <input type="text" id="course" value="Java" disabled>
+
+                        </div>
+                        <div>
+                            <label id="fees"> Course Fees : </label>
+                            <input type="text" name="fees" value="10000" disabled id="fees"
+                                placeholder="Enter your DOB">
+                        </div>
+
+                    </div>
+                    <div class="two-input">
+                        <div>
+                            <label for="fees-paid">Fees Paid : </label>
+
+                            <input type="text" id="fees-paid" name="fees-paid" value="5000" disabled>
+
+                        </div>
+                        <div>
+                            <label id="fees-balance"> Fees Balance : </label>
+                            <input type="text" name="fees-balance" id="fees-balance" value="5000" disabled
+                                id="fees-balance" placeholder="Enter your DOB">
+                        </div>
+
+                    </div>
+
+
+                    <div class="two-input">
+                        <div>
+                            <label for="paymentMode">Payment Mode :</label>
+
+                            <select name="paymentMode" id="paymentMode" class="paymentModeField">
+                                <option value="" selected disabled>Online / Offline </option>
+                                <option value="cash">Cash</option>
+                                <option value="online">Online</option>
+                            </select>
+
+                        </div>
+                        <div>
+                            <label for="amount">Enter amount to pay :</label>
+                            <input type="text" id="amount" placeholder="amount">
+                        </div>
+                    </div>
+
+                    <div class="qr-container">
+
+                        <div class="img">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example"
+                                alt="qrCode">
+                        </div>
+                        <div class="transaction-id-container"></div>
+
+                    </div>
+
+                    <div class="submit-container">
+                        <input type="submit" class="submit-btn" value="Register">
+                    </div>
+
+                    <div class="note">
+                        <ul>
+                            <li>* Please Fill All Details Properly.</li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        All Rights &copy; Are Reserved 2023 || Created And Developed By AmmarDeveloper
+    </footer>
+    <script src="./javascript/script.js"></script>
+    <script>
+        const paymentForm = document.querySelector( '.payment-form' )
+        const paymentModeField = document.querySelector( '.paymentModeField' )
+        const qrContainer = document.querySelector( '.qr-container' )
+        const transactionIdContainer = document.querySelector( '.transaction-id-container' )
+        const transactionInput = ` <input type="text" id="transactionId" placeholder="Enter Transaction Id">`
+
+        paymentModeField.oninput = () => {
+
+            let paymentMethod = paymentModeField.value
+
+            if ( paymentMethod == "cash" ) {
+
+                transactionIdContainer.innerHTML = ''
+                qrContainer.classList.remove( 'active' )
+
+            } else if ( paymentMethod == "online" ) {
+
+                transactionIdContainer.innerHTML = transactionInput
+                qrContainer.classList.add( 'active' )
+
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>
